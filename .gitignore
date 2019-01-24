@@ -1,0 +1,9 @@
+
+UnityPackageManager
+Library
+Temp
+.idea/
+*.sln
+*.csproj
+testtest.sln.DotSettings.user
+Unity-Animation-Instancing.sln.DotSettings.user
