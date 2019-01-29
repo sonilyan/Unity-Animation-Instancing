@@ -17,9 +17,4 @@ public class RandomTimeOffset : MonoBehaviour {
 			mr.SetPropertyBlock(props);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
