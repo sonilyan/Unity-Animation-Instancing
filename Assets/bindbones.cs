@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Internal;
 using UnityEngine;
 
 public class bindbones : MonoBehaviour
@@ -32,33 +31,21 @@ public class bindbones : MonoBehaviour
 		{
 			root = root.parent;
 		}
-
-		for (int i = 0; i < skin_mesh.bones.Length; i++)
-		{
-			var boneTrans = skin_mesh.bones[i];
-			var m1 = boneTrans.worldToLocalMatrix * root.localToWorldMatrix;
-			var m2 = root.localToWorldMatrix * boneTrans.worldToLocalMatrix;
-			var m3 = skin_mesh.sharedMesh.bindposes[i];
-
-			if (m1 != m2)
-			{
-				Debug.Log("error!");
-			}
-			
-			test.Add(m1);
-
-			if (m1 != m3)
-			{
-				Debug.Log(m1);
-				Debug.Log(m3);
-			}
-		}
 		
-		Debug.Log("done!");
+		Debug.Log(skin_mesh.sharedMesh.bindposes[0]);
+
+		Matrix4x4 m1 = skin_mesh.bones[0].worldToLocalMatrix * root.localToWorldMatrix;
+		
+		Debug.Log(m1);
+
+		Matrix4x4 m2 = root.localToWorldMatrix * skin_mesh.bones[0].worldToLocalMatrix;
+		
+		Debug.Log(m2);
+		
+		var x = root.worldToLocalMatrix * skin_mesh.bones[0].localToWorldMatrix * skin_mesh.sharedMesh.bindposes[0];
 	}
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("update");
 	}
 }

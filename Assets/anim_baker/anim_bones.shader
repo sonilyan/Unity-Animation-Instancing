@@ -56,16 +56,8 @@
 			    float4 r2 = tex2Dlod(_AnimationTex,float4((boneIndex*4+1) / _AnimWidth,frame,0,0));
 			    float4 r3 = tex2Dlod(_AnimationTex,float4((boneIndex*4+2) / _AnimWidth,frame,0,0));
 			    float4 r4 = tex2Dlod(_AnimationTex,float4((boneIndex*4+3) / _AnimWidth,frame,0,0));
-			    //r4 = float4(0,0,0,1.0);
-			    return float4x4(r1,r2,r3,r4);//参数是列而不是行
 			    
-			    float4x4 m;
-	            m._11_21_31_41 = r1;
-	            m._12_22_32_42 = r2;
-	            m._13_23_33_43 = r3;
-	            m._14_24_34_44 = r4;
-	            
-	            return m;
+			    return float4x4(r1,r2,r3,r4);
 			}
 			
 			v2f vert (appdata v)
@@ -80,12 +72,6 @@
 				fmod(f, 1.0);
 				
 				float4x4 Matrix = GetMatrix(boneIndex.x,f) * boneWeight.x; 
-				
-				if(Matrix._44 - 1 < 0.001 && Matrix._43 < 0.001 && false) {//for debug
-				    o.vertex = UnityObjectToClipPos(v.vertex);
-				    o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				    return o;
-				}
 				
 				if(boneWeight.y > 0)
 				    Matrix += GetMatrix(boneIndex.y,f) * boneWeight.y;
