@@ -61,6 +61,11 @@ public class anim_baker_editor : Editor
                     {
                         if (true)
                         {
+                            //bindpose = boneTran.world2local  * root.local2world
+                            //把root空间下的vertex变为骨骼空间下
+                            //因为骨骼对顶点的约束不变，所以再*bones[j].local2world，使顶点变为
+                            //相对于当前骨骼位置下的原约束位置的世界坐标
+                            //然后再变为root下的相对位置
                             tmp[j] = root.worldToLocalMatrix * smr.bones[j].localToWorldMatrix *
                                      smr.sharedMesh.bindposes[j];
                         }
