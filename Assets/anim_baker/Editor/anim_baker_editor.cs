@@ -9,13 +9,10 @@ using UnityEngine;
 [CustomEditor(typeof(anim_baker))]
 public class anim_baker_editor : Editor
 {
-    private bool cp2 = false;
-
     public override void OnInspectorGUI()
     {
         anim_baker b = (anim_baker) target;
         base.OnInspectorGUI();
-        cp2 = EditorGUILayout.Toggle("ClosestPowerOfTwo", cp2);
         if (GUILayout.Button("bake"))
         {
 
@@ -138,22 +135,7 @@ public class anim_baker_editor : Editor
             ani.Stop();
         }
 
-        Debug.Log(basedata.Length + "-" + Mathf.ClosestPowerOfTwo(basedata.Length));
-        Debug.Log(data.Count + "-" + Mathf.ClosestPowerOfTwo(data.Count));
-
-        Texture2D t2d;
-        if (cp2)
-        {
-            t2d = new Texture2D(
-                Mathf.ClosestPowerOfTwo(basedata.Length),
-                Mathf.ClosestPowerOfTwo(data.Count),
-                TextureFormat.RGBA32, false);
-        }
-        else
-        {
-            t2d = new Texture2D(basedata.Length, data.Count,
-                TextureFormat.RGBA32, false);
-        }
+        var t2d = new Texture2D(basedata.Length, data.Count,TextureFormat.RGBA32, false);
 
         t2d.filterMode = FilterMode.Point;
 
